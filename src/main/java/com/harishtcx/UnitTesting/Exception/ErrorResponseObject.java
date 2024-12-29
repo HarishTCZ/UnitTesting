@@ -8,7 +8,7 @@ public class ErrorResponseObject {
     public ErrorResponseObject(String message, int statusCode) {
         this.message = message;
         this.statusCode = statusCode;
-        this.timestamp = timestamp;
+        this.timestamp = System.currentTimeMillis();
     }
 
     public String getMessage() {
