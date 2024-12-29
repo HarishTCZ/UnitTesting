@@ -2,13 +2,14 @@ package com.harishtcx.UnitTesting.Implementation;
 
 import com.harishtcx.UnitTesting.DTO.UserDTO;
 import com.harishtcx.UnitTesting.Entity.User;
+import com.harishtcx.UnitTesting.Exception.UserNotFoundException;
 import com.harishtcx.UnitTesting.Repository.UserRepository;
 import com.harishtcx.UnitTesting.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +24,11 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<User> getById(Long id){
+        return Optional.ofNullable(userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found with id: "+id)));
     }
 
     @Override
